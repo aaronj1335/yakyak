@@ -72,6 +72,9 @@ getImageUrl = (url="") ->
     return url if isImg url
     false
 
+nonNegativePhotoUrl = (url="") ->
+    url.replace /photo\.jpg$/, 'c-k-no/photo.jpg'
+
 toggleVisibility = (element) ->
     if element.style.display == 'block'
         element.style.display = 'none'
@@ -100,4 +103,4 @@ convertEmoji = (text) ->
     return text
 module.exports = {nameof, initialsof, nameofconv, linkto, later, throttle, uniqfn,
 isAboutLink, getProxiedName, tryparse, fixlink, topof, isImg, getImageUrl,
-toggleVisibility, convertEmoji}
+nonNegativePhotoUrl, toggleVisibility, convertEmoji}

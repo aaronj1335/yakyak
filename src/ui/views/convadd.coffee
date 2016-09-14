@@ -1,5 +1,5 @@
 
-{initialsof, throttle, nameof, fixlink} = require '../util'
+{initialsof, throttle, nameof, fixlink, nonNegativePhotoUrl} = require '../util'
 chilledaction = throttle 1500, action
 
 unique = (obj) -> obj.id.chat_id or obj.id.gaia_id
@@ -82,7 +82,7 @@ module.exports = view (models) ->
               li class: 'selected', ->
                   if purl = r.properties?.photo_url ? entity[cid]?.photo_url
                     purl += "?sz=50" unless viewstate?.showAnimatedThumbs
-                    img src:fixlink(purl), onerror: ->
+                    img src:nonNegativePhotoUrl(fixlink(purl)), onerror: ->
                         this.outerHTML = drawInitials(entity, cid)
                   else
                       drawInitials(entity, cid)
@@ -97,7 +97,7 @@ module.exports = view (models) ->
               li ->
                   if purl = r.properties?.photo_url ? entity[cid]?.photo_url
                     purl += "?sz=50" unless viewstate?.showAnimatedThumbs
-                    img src:fixlink(purl), onerror: ->
+                    img src:nonNegativePhotoUrl(fixlink(purl)), onerror: ->
                         this.outerHTML = drawInitials(entity, cid)
                   else
                       # in case the image is not available, it

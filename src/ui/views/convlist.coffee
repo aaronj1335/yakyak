@@ -1,5 +1,6 @@
 moment = require 'moment'
-{nameof, initialsof, nameofconv, fixlink} = require '../util'
+{nameof, initialsof, nameofconv, fixlink,
+nonNegativePhotoUrl} = require '../util'
 
 module.exports = view (models) ->
     {conv, entity, viewstate} = models
@@ -36,7 +37,7 @@ module.exports = view (models) ->
                             if image and !viewstate.showAnimatedThumbs
                                 image += "?sz=50"
                             if image
-                                img src:fixlink(image)
+                                img src:nonNegativePhotoUrl(fixlink(image))
                                 , "data-initials": initials
                                 , "data-id": p.id
                                 , onerror: ->

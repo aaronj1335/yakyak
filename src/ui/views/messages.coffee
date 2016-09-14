@@ -2,7 +2,8 @@ moment = require 'moment'
 shell = require('electron').shell
 
 {nameof, initialsof, nameofconv, linkto, later, forceredraw, throttle,
-getProxiedName, fixlink, isImg, getImageUrl}  = require '../util'
+getProxiedName, fixlink, nonNegativePhotoUrl, isImg,
+getImageUrl}  = require '../util'
 
 CUTOFF = 5 * 60 * 1000 * 1000 # 5 mins
 
@@ -188,7 +189,7 @@ drawAvatar = (u, sender, viewstate, entity) ->
         if purl and !viewstate?.showAnimatedThumbs
             purl += "?sz=50"
         if purl
-            img src:fixlink(purl), "data-id": u.cid, "data-initials": initials,  onerror: ->
+            img src:nonNegativePhotoUrl(fixlink(purl)), "data-id": u.cid, "data-initials": initials,  onerror: ->
                 # in case the image is not available, it
                 #  fallbacks to initials
                 document.querySelectorAll('*[data-id="' + this.dataset.id + '"]').forEach (el) ->
